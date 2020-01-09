@@ -10,12 +10,12 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/oschwald/geoip2-golang"
+	"github.com/oschwald/maxminddb-golang"
 )
 
 var (
-	dbCity *geoip2.Reader
-	dbASN  *geoip2.Reader
+	dbCity *maxminddb.Reader
+	dbASN  *maxminddb.Reader
 
 	dbASNFileName  = "GeoLite2-ASN.mmdb"
 	dbCityFileName = "GeoLite2-City.mmdb"
@@ -56,7 +56,7 @@ func OpenDBs() {
 
 }
 
-func openDB(filenameCompressed string, filename string) (*geoip2.Reader, error) {
+func openDB(filenameCompressed string, filename string) (*maxminddb.Reader, error) {
 
 	file, err := os.Open(filenameCompressed)
 	if err != nil {
@@ -81,14 +81,18 @@ func openDB(filenameCompressed string, filename string) (*geoip2.Reader, error) 
 			return nil, err
 		}
 
-		//fmt.Println(filename, filepath.Base(hdr.Name))
 		if filepath.Base(hdr.Name) == filename {
-			//fmt.Println(filepath.Base(hdr.Name))
+
 			dbBytes, err := ioutil.ReadAll(tr)
-			dbMM, err := geoip2.FromBytes(dbBytes)
 			if err != nil {
 				return nil, err
 			}
+
+			dbMM, err := maxminddb.FromBytes(dbBytes)
+			if err != nil {
+				return nil, err
+			}
+
 			return dbMM, nil
 		}
 
