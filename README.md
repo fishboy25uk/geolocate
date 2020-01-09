@@ -11,21 +11,37 @@ Uses [https://www.github.com/oschwald/maxminddb-golang](https://www.github.com/o
 ```
 go get -u github.com/fishboy25uk/geolocate
 ```
-##Usage
+## Usage
 ```
 package main
 
-import github.com/fishboy25uk/geolocate
+import (
+	"fmt"
+	"net"
+
+	"github.com/fishboy25uk/geolocate"
+)
 
 func main() {
 
-  //Update DBs
-	geolocate.UpdateDBs("MAXMIND KEY")
+	//Update DBs
+	geolocate.UpdateDBs("jWYLmVxv2BMfplzT")
 
-  //Open DBs
-  geolocate.OpenDBs()
+	//Open DBs
+	geolocate.OpenDBs()
 
-  g,_:=geolocate.Geolocate(net.ParseIP("8.8.8.8")
+	ip := "9.9.9.9"
+
+	g, _ := geolocate.Geolocate(net.ParseIP(ip))
+
+	fmt.Printf("\nGeolocation Record for %s\nCity: %s\nCountry: %s\nCountry Code: %s\nASN: %v\nOrg: %s\n", ip, g.City, g.Country, g.CountryCode, g.ASN, g.Org)
+	
+	//Geolocation Record for 9.9.9.9
+	//City: Paris
+	//Country: France
+	//Country Code: fr
+	//ASN: 19281
+	//Org: Quad9
 
 }
 
