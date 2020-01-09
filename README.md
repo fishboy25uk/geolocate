@@ -27,7 +27,7 @@ import (
 func main() {
 
 	//Update DBs
-	geolocate.UpdateDBs("jWYLmVxv2BMfplzT")
+	geolocate.UpdateDBs("MAXMINDKEY")
 
 	//Open DBs
 	geolocate.OpenDBs()
