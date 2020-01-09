@@ -1,7 +1,6 @@
 package geolocate
 
 import (
-	"log"
 	"net"
 	"strings"
 )
@@ -21,7 +20,7 @@ func Geolocate(ip net.IP) (Geolocation, error) {
 
 	err := dbCity.Lookup(ip, &recordCity)
 	if err != nil {
-		log.Fatal(err)
+		return Geolocation{}, err
 	}
 
 	var recordASN struct {
@@ -30,21 +29,11 @@ func Geolocate(ip net.IP) (Geolocation, error) {
 	}
 	err = dbASN.Lookup(ip, &recordASN)
 	if err != nil {
-		log.Fatal(err)
+		return Geolocation{}, err
 	}
 
-	//ip := net.ParseIP(ipRaw)
-	//recordCity, err := dbCity.City(ip)
-	//if err != nil {
-	//	return Geolocation{}, err
-	//}
-	//recordASN, err := dbASN.ASN(ip)
-	//if err != nil {
-	//	return Geolocation{}, err
-	//}
+	geolocation := Geolocation{City: recordCity.City.Names["en"], Country: recordCity.Country.Names["en"], CountryCode: strings.ToLower(recordCity.Country.ISOCode), ASN: recordASN.AutonomousSystemNumber, Org: recordASN.AutonomousSystemOrganization}
 
-	geoip := Geolocation{City: recordCity.City.Names["en"], Country: recordCity.Country.Names["en"], CountryCode: strings.ToLower(recordCity.Country.ISOCode), ASN: recordASN.AutonomousSystemNumber, ASNOrg: recordASN.AutonomousSystemOrganization}
-
-	return geoip, nil
+	return geolocation, nil
 
 }

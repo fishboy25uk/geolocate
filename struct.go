@@ -6,5 +6,5 @@ type Geolocation struct {
 	Country     string `json:"country,omitempty"`
 	CountryCode string `json:"countrycode,omitempty"`
 	ASN         uint   `json:"asn,omitempty"`
-	ASNOrg      string `json:"asnorg,omitempty"`
+	Org         string `json:"org,omitempty"`
 }
