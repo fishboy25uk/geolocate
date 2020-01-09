@@ -7,6 +7,8 @@ Lookup returns a GeoIP object with City, Country, CountryCode, ASN and Org name
 
 Uses [https://www.github.com/oschwald/maxminddb-golang](https://www.github.com/oschwald/maxminddb-golang)
 
+NB: City / Country names only returned in English.
+
 ## Installation
 ```
 go get -u github.com/fishboy25uk/geolocate
