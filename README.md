@@ -1,9 +1,9 @@
 # geolocate
-Helper functions for IP geolocation using MaxMind Geolite2 databases in Go
+Helper functions for IP geolocation in Go using the MaxMind Geolite2 databases.
 
-Automatically downloads/updates MaxMind Geolite2 database on local machine (when UpdateDBs is run) then loads DBs into memory for performance. Download required provision of a MaxMind license key (free for GeoLite2 DBs but required registration)
+Automatically downloads/updates MaxMind Geolite2 databases (City and ASN) on local machine (when UpdateDBs function is run) then loads DBs into memory for performance. Download requires provision of a MaxMind license key (free for GeoLite2 DBs but requires registration)
 
-Lookup returns a GeoIP object with City, Country, CountryCode, ASN and Org name
+Geolocate function returns a GeoIP object with City, Country, CountryCode, ASN and Org name.
 
 Uses [https://www.github.com/oschwald/maxminddb-golang](https://www.github.com/oschwald/maxminddb-golang)
 
@@ -32,11 +32,13 @@ func main() {
 	//Open DBs
 	geolocate.OpenDBs()
 
-	ip := "9.9.9.9"
+	//Define IP for lookup
+	ip := net.ParseIP("9.9.9.9")
 
-	g, _ := geolocate.Geolocate(net.ParseIP(ip))
+	//Perform geolocation on IP (
+	g, _ := geolocate.Geolocate(ip)
 
-	fmt.Printf("\nGeolocation Record for %s\nCity: %s\nCountry: %s\nCountry Code: %s\nASN: %v\nOrg: %s\n", ip, g.City, g.Country, g.CountryCode, g.ASN, g.Org)
+	fmt.Printf("\nGeolocation Record for %v\nCity: %s\nCountry: %s\nCountry Code: %s\nASN: %v\nOrg: %s\n", ip, g.City, g.Country, g.CountryCode, g.ASN, g.Org)
 	
 	//Geolocation Record for 9.9.9.9
 	//City: Paris
