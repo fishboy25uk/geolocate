@@ -56,7 +56,7 @@ func geoDBUpdate(filename string, md5path string, dbpath string) (int, error) {
 
 		//Check MD5s
 		if dbMD5 != string(out) {
-			log.Printf("Status: Update for %s available, downloading\n", filename)
+			//log.Printf("Status: Update for %s available, downloading\n", filename)
 			err = fileDownload(dbpath, filename)
 			if err != nil {
 				return 0, err
@@ -65,7 +65,7 @@ func geoDBUpdate(filename string, md5path string, dbpath string) (int, error) {
 
 	} else { //Doesn't exist do download
 
-		log.Printf("Status: %s does not exist, downloading\n", filename)
+		//log.Printf("Status: %s does not exist, downloading\n", filename)
 
 		err := fileDownload(dbpath, filename)
 		if err != nil {
