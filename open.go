@@ -34,13 +34,12 @@ var (
 )
 
 //OpenDBs opens the MaxMind City and ASN databases
-func OpenDBs() {
+func OpenDBs() error {
 
 	//Open GeoIP City DB
 	dbCityTemp, err := openDB(dbCityFileNameCompressed, dbCityFileName)
 	if err != nil {
-		log.Println("ERROR: Could not load geoip dbCity", err)
-		os.Exit(1)
+		return err
 	}
 	dbCity = dbCityTemp
 	//defer dbCity.Close()
@@ -48,11 +47,12 @@ func OpenDBs() {
 	//Open GeoIP ASN DB
 	dbASNTemp, err := openDB(dbASNFileNameCompressed, dbASNFileName)
 	if err != nil {
-		log.Println("ERROR: Could not load geoip dbASN", err)
-		os.Exit(1)
+		return err
 	}
 	dbASN = dbASNTemp
 	//defer dbASN.Close()
+	
+	return nil
 
 }
 
