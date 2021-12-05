@@ -6,7 +6,6 @@ import (
 	"errors"
 	"io"
 	"io/ioutil"
-	"log"
 	"os"
 	"path/filepath"
 
@@ -51,7 +50,7 @@ func OpenDBs() error {
 	}
 	dbASN = dbASNTemp
 	//defer dbASN.Close()
-	
+
 	return nil
 
 }
